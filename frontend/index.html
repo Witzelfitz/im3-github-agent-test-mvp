@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Begegnungszonen in der Stadt St.Gallen</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Begegnungszonen in der Stadt St.Gallen</h1>
+    <p>Eine Datastory: Wo und seit wann haben Fussgängerinnen Vortritt?</p>
+  </header>
+  <main>
+    <section>
+      <h2>Wie viele gibt es?</h2>
+      <p id="kpi" class="kpi"></p>
+    </section>
+    <section>
+      <h2>Wann wurden sie realisiert?</h2>
+      <p id="text-year"></p>
+      <canvas id="chart-year"></canvas>
+    </section>
+    <section>
+      <h2>Das Netz wächst</h2>
+      <canvas id="chart-cumulative"></canvas>
+    </section>
+    <section>
+      <h2>Pro Jahrzehnt</h2>
+      <canvas id="chart-decade"></canvas>
+    </section>
+    <section>
+      <h2>Die jüngsten Begegnungszonen</h2>
+      <ul id="latest"></ul>
+    </section>
+  </main>
+  <footer>Quelle: <a href="https://stadt-stgallen.opendatasoft.com/explore/dataset/begegnungszonen/">Stadt St.Gallen Open Data</a> – CSV-Kopie in <code>data/</code>, geladen in SQLite.</footer>
+  <script src="vendor/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
