@@ -4,26 +4,20 @@ const { openDb } = require('../db');
 function load(rows, dbPath) {
   const db = openDb(dbPath);
   db.exec(`
-    DROP TABLE IF EXISTS laufverkehr;
-    CREATE TABLE laufverkehr (
-      zeitstempel TEXT NOT NULL,
-      datum TEXT NOT NULL,
-      stunde INTEGER NOT NULL,
-      wochentag INTEGER NOT NULL,
-      monat INTEGER NOT NULL,
-      standort TEXT NOT NULL,
-      anzahl INTEGER NOT NULL,
-      PRIMARY KEY (zeitstempel, standort)
+    DROP TABLE IF EXISTS begegnungszonen;
+    CREATE TABLE begegnungszonen (
+      nr TEXT PRIMARY KEY,
+      gebiet TEXT NOT NULL,
+      realisiert TEXT,
+      jahr INTEGER,
+      lat REAL,
+      lon REAL
     );
   `);
-  const insert = db.prepare(
-    'INSERT OR REPLACE INTO laufverkehr VALUES (?, ?, ?, ?, ?, ?, ?)'
-  );
+  const insert = db.prepare('INSERT OR REPLACE INTO begegnungszonen VALUES (?, ?, ?, ?, ?, ?)');
   db.exec('BEGIN');
   try {
-    for (const r of rows) {
-      insert.run(r.zeitstempel, r.datum, r.stunde, r.wochentag, r.monat, r.standort, r.anzahl);
-    }
+    for (const r of rows) insert.run(r.nr, r.gebiet, r.realisiert, r.jahr, r.lat, r.lon);
     db.exec('COMMIT');
   } catch (e) {
     db.exec('ROLLBACK');

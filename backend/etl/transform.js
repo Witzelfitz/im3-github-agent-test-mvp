@@ -2,20 +2,16 @@
 function transform(rows) {
   const out = [];
   for (const r of rows) {
-    const date = new Date(r.zeitstempel.replace(' ', 'T') + 'Z');
-    const anzahl = Number.parseInt(r.anzahl, 10);
-    if (Number.isNaN(date.getTime()) || !r.standort || !Number.isFinite(anzahl) || anzahl < 0) {
-      continue;
-    }
-    const iso = date.toISOString();
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(r.realisiert || '');
+    if (!r.nr || !r.gebiet) continue;
+    const num = (v) => (v !== '' && Number.isFinite(Number(v)) ? Number(v) : null);
     out.push({
-      zeitstempel: iso.slice(0, 19).replace('T', ' '),
-      datum: iso.slice(0, 10),
-      stunde: date.getUTCHours(),
-      wochentag: (date.getUTCDay() + 6) % 7, // 0 = Montag
-      monat: date.getUTCMonth() + 1,
-      standort: r.standort,
-      anzahl,
+      nr: r.nr,
+      gebiet: r.gebiet,
+      realisiert: m ? `${m[1]}-${m[2]}-${m[3]}` : null,
+      jahr: m ? Number(m[1]) : null,
+      lat: num(r.lat),
+      lon: num(r.lon),
     });
   }
   return out;

@@ -2,6 +2,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '0 4 * * 1'
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,6 +24,8 @@ jobs:
         with:
           node-version: 22
       - run: npm ci
+      - name: Aktuellen Datensatz laden (Fallback auf CSV-Kopie)
+        run: npm run fetch || echo "API nicht erreichbar, nutze data/begegnungszonen.csv"
       - run: npm test
       - run: npm run build:static
       - uses: actions/configure-pages@v5

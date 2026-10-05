@@ -5,23 +5,24 @@ function getStats(dbPath) {
   const db = openDb(dbPath);
   try {
     const all = (sql) => db.prepare(sql).all();
+    const perYear = all(
+      'SELECT jahr, COUNT(*) AS anzahl FROM begegnungszonen WHERE jahr IS NOT NULL GROUP BY jahr ORDER BY jahr'
+    );
+    let sum = 0;
+    const cumulative = perYear.map((r) => ({ jahr: r.jahr, anzahl: (sum += r.anzahl) }));
     return {
-      total: all('SELECT SUM(anzahl) AS total FROM laufverkehr')[0].total,
-      perMonth: all(
-        'SELECT monat, SUM(anzahl) AS anzahl FROM laufverkehr GROUP BY monat ORDER BY monat'
+      total: all('SELECT COUNT(*) AS n FROM begegnungszonen')[0].n,
+      perYear,
+      cumulative,
+      perDecade: all(
+        'SELECT (jahr / 10) * 10 AS dekade, COUNT(*) AS anzahl FROM begegnungszonen WHERE jahr IS NOT NULL GROUP BY dekade ORDER BY dekade'
       ),
-      perHour: all(
-        'SELECT stunde, ROUND(AVG(anzahl)) AS anzahl FROM laufverkehr GROUP BY stunde ORDER BY stunde'
+      latest: all(
+        'SELECT nr, gebiet, realisiert FROM begegnungszonen WHERE realisiert IS NOT NULL ORDER BY realisiert DESC LIMIT 5'
       ),
-      perWeekday: all(
-        'SELECT wochentag, ROUND(AVG(anzahl)) AS anzahl FROM laufverkehr GROUP BY wochentag ORDER BY wochentag'
-      ),
-      perLocation: all(
-        'SELECT standort, SUM(anzahl) AS anzahl FROM laufverkehr GROUP BY standort ORDER BY anzahl DESC'
-      ),
-      peakDay: all(
-        'SELECT datum, SUM(anzahl) AS anzahl FROM laufverkehr GROUP BY datum ORDER BY anzahl DESC LIMIT 1'
-      )[0],
+      oldest: all(
+        'SELECT nr, gebiet, realisiert FROM begegnungszonen WHERE realisiert IS NOT NULL ORDER BY realisiert ASC LIMIT 1'
+      )[0] || null,
     };
   } finally {
     db.close();
