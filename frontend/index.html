@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laufverkehr in der Stadt St.Gallen</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Laufverkehr in der Stadt St.Gallen</h1>
+    <p>Eine Datastory über Fussgängerfrequenzen – aus der eigenen SQLite-DB.</p>
+  </header>
+  <main>
+    <section>
+      <h2>Wie viele Menschen sind unterwegs?</h2>
+      <p id="kpi" class="kpi"></p>
+    </section>
+    <section>
+      <h2>Wo ist am meisten los?</h2>
+      <p>Die Zählstellen im Vergleich.</p>
+      <canvas id="chart-location"></canvas>
+    </section>
+    <section>
+      <h2>Der Tag in der Stadt</h2>
+      <p id="text-hour"></p>
+      <canvas id="chart-hour"></canvas>
+    </section>
+    <section>
+      <h2>Wochenrhythmus</h2>
+      <canvas id="chart-weekday"></canvas>
+    </section>
+    <section>
+      <h2>Das Jahr im Verlauf</h2>
+      <p id="text-month"></p>
+      <canvas id="chart-month"></canvas>
+    </section>
+  </main>
+  <footer>Hinweis: Die Daten im Ordner <code>data/</code> sind eine CSV-Kopie (aktuell Beispieldaten); Ersatz durch den offiziellen Datensatz und erneutes <code>npm run etl</code> möglich.</footer>
+  <script src="vendor/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
