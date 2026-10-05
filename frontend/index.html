@@ -3,38 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Begegnungszonen in der Stadt St.Gallen</title>
+  <title>Tempo 20: Wie St.Gallen die Strasse zurückerobert</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Begegnungszonen in der Stadt St.Gallen</h1>
-    <p>Eine Datastory: Wo und seit wann haben Fussgängerinnen Vortritt?</p>
-  </header>
+  <header><div class="wrap">
+    <span class="tag">Datastory · Stadtentwicklung</span>
+    <h1>Tempo 20. <span>Fussgänger first.</span></h1>
+    <p class="lead">Acht Begegnungszonen in über 20 Jahren: Was verrät die Zahl über den Umgang St.Gallens mit der Strasse?</p>
+    <p class="byline">Auswertung der offenen Daten der Stadt St.Gallen · automatisch aktualisiert</p>
+  </div></header>
   <main>
     <section>
-      <h2>Wie viele gibt es?</h2>
-      <p id="kpi" class="kpi"></p>
+      <h2><small>Kapitel 1</small>Die Zahl</h2>
+      <p>In einer Begegnungszone gilt Tempo&nbsp;20, und Zu-Fuss-Gehende haben Vortritt – sie dürfen die ganze Fahrbahn nutzen. Die Idee stammt aus den 1990ern, in der Schweiz ist sie seit 2002 im Gesetz verankert. Und St.Gallen?</p>
+      <div class="stats" id="stats"></div>
+      <blockquote id="kpi"></blockquote>
     </section>
-    <section>
-      <h2>Wann wurden sie realisiert?</h2>
+    <section class="chart">
+      <h2><small>Kapitel 2</small>Schübe statt Stetigkeit</h2>
       <p id="text-year"></p>
       <canvas id="chart-year"></canvas>
+      <div class="fact" id="fact-same"></div>
     </section>
-    <section>
-      <h2>Das Netz wächst</h2>
+    <section class="chart">
+      <h2><small>Kapitel 3</small>Das Netz wächst – langsam</h2>
       <canvas id="chart-cumulative"></canvas>
+      <div class="fact" id="fact-gap"></div>
     </section>
-    <section>
-      <h2>Pro Jahrzehnt</h2>
+    <section class="chart">
+      <h2><small>Kapitel 4</small>Pro Jahrzehnt</h2>
       <canvas id="chart-decade"></canvas>
     </section>
     <section>
-      <h2>Die jüngsten Begegnungszonen</h2>
-      <ul id="latest"></ul>
+      <h2><small>Kapitel 5</small>Die Chronik</h2>
+      <ol class="timeline" id="timeline"></ol>
+      <div class="fact" id="fact-now"></div>
     </section>
   </main>
-  <footer>Quelle: <a href="https://stadt-stgallen.opendatasoft.com/explore/dataset/begegnungszonen/">Stadt St.Gallen Open Data</a> – CSV-Kopie in <code>data/</code>, geladen in SQLite.</footer>
+  <footer>Quelle: <a href="https://stadt-stgallen.opendatasoft.com/explore/dataset/begegnungszonen/">Stadt St.Gallen Open Data</a> – CSV-Kopie in <code>data/</code>, geladen in SQLite. Alle Kennzahlen (Abstände, Durchschnitt, Rekorde) werden aus diesen Daten berechnet. Kontext zur Rechtslage: Verkehrsregelnverordnung (VRV), Art. 22b.</footer>
   <script src="vendor/chart.js"></script>
   <script src="app.js"></script>
 </body>
