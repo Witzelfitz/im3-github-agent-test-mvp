@@ -1,0 +1,13 @@
+{
+  "name": "laufverkehr-stgallen",
+  "version": "1.0.0",
+  "description": "Datastory zum Laufverkehr in der Stadt St.Gallen (ETL -> SQLite -> Vanilla JS + Chart.js)",
+  "private": true,
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "etl": "node backend/etl/run.js",
+    "start": "node backend/server.js",
+    "test": "node --test backend/etl.test.js"
+  },
+  "dependencies": { "chart.js": "^4.4.0" }
+}
